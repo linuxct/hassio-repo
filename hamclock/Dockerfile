@@ -21,6 +21,7 @@ RUN apk add --no-cache tar bash jq && \
 # Add the nice banner
 ADD https://raw.githubusercontent.com/hassio-addons/addon-debian-base/v5.1.0/base/rootfs/etc/cont-init.d/00-banner.sh /etc/s6-overlay/s6-rc.d/banner/
 RUN mkdir -p /etc/s6-overlay/s6-rc.d/banner && \
+    mkdir -p /etc/s6-overlay/s6-rc.d/user/contents.d && \
     echo "oneshot" > /etc/s6-overlay/s6-rc.d/banner/type && \
     echo "/etc/s6-overlay/s6-rc.d/banner/script" > /etc/s6-overlay/s6-rc.d/banner/up && \
     touch /etc/s6-overlay/s6-rc.d/user/contents.d/banner && \
