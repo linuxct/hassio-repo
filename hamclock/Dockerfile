@@ -49,7 +49,7 @@ RUN chmod a+x /entrypoint.sh
 WORKDIR /hamclock/ESPHamClock
 
 # Add HEALTHCHECK for hamclock service
-HEALTHCHECK --interval=30s --timeout=10s --start-period=20s --retries=3 CMD [ $(ps -A | grep hamclock | wc -l) -le 2 ] && sleep 60 && exit 1
+HEALTHCHECK --interval=30s --timeout=10s --start-period=2s --retries=3 CMD [ $(ps -A | grep hamclock | wc -l) -lt 2 ] && sleep 60 && exit 1
 
 # Run our entrypoint
 CMD ["/entrypoint.sh"]
