@@ -15,7 +15,7 @@ map:
 #   message: "Hello world..."
 schema:
   message: "str?"
-# image: "ghcr.io/linuxct/{arch}-addon-hamclock"
+image: "ghcr.io/linuxct/homeassistant-addon-hamclock-{arch}"
 hassio_api: true
 homeassistant_api: true
 ingress: true
