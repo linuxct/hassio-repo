@@ -1,6 +1,6 @@
 # https://developers.home-assistant.io/docs/add-ons/configuration#add-on-config
 name: HamClock add-on
-version: "0.1"
+version: "0.2"
 slug: hamclock
 description: HamClock add-on
 url: "https://github.com/linuxct/hassio-repo/tree/main/hamclock"
@@ -19,12 +19,12 @@ image: "ghcr.io/linuxct/homeassistant-addon-hamclock-{arch}"
 hassio_api: true
 homeassistant_api: true
 ingress: true
-ingress_port: 8081
+ingress_port: 8081 # On purpose, as we want to be able to visualize the hamclock webui from the dashboard
 ports:
   8080/tcp: null
   8081/tcp: null
 ports_description:
-  8080/tcp: Management port
+  8080/tcp: Management port (expose carefully)
   8081/tcp: HamClock Web UI
 panel_icon: mdi:radio-tower
-panel_title: ADS-B Feeder
+panel_title: HamClock
