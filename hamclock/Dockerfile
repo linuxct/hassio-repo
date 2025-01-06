@@ -2,7 +2,7 @@ ARG BUILD_FROM=chrisromp/hamclock-docker:latest
 FROM $BUILD_FROM
 
 # Install prerequisites
-RUN apk add --no-cache curl jq tar xz
+RUN apk add --no-cache bash curl jq tar xz
 
 # Set up the architecture for multiarch builds
 ARG BUILD_ARCH
