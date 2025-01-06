@@ -12,7 +12,7 @@ RUN echo "Building for architecture: ${BUILD_ARCH}"
 RUN case "${BUILD_ARCH}" in \
         "amd64") export S6_ARCH="x86_64" ;; \
         "armv7") export S6_ARCH="armhf" ;; \
-        "arm64") export S6_ARCH="aarch64" ;; \
+        "aarch64") export S6_ARCH="aarch64" ;; \
         *) echo "Unsupported architecture ${BUILD_ARCH}" && exit 1 ;; \
     esac && \
     curl -L -o /tmp/s6-overlay-noarch.tar.xz https://github.com/just-containers/s6-overlay/releases/download/v3.1.5.0/s6-overlay-noarch.tar.xz && \
@@ -39,18 +39,15 @@ RUN mkdir -p /etc/s6-overlay/s6-rc.d/banner && \
     chmod +x /etc/s6-overlay/s6-rc.d/banner/script && \
     sed -i '1 s/^.*$/#!\/command\/with-contenv bashio/' /etc/s6-overlay/s6-rc.d/banner/script
 
-# Create the hamclock service with the correct working directory
-RUN mkdir -p /etc/s6-overlay/s6-rc.d/hamclock && \
-    echo "#!/bin/sh" > /etc/s6-overlay/s6-rc.d/hamclock/run && \
-    echo "cd /hamclock/ESPHamClock && exec /usr/local/bin/hamclock -o" >> /etc/s6-overlay/s6-rc.d/hamclock/run && \
-    chmod +x /etc/s6-overlay/s6-rc.d/hamclock/run && \
-    echo "longrun" > /etc/s6-overlay/s6-rc.d/hamclock/type
-
-# Add HEALTHCHECK for hamclock service
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 CMD s6-svstat /var/run/s6/services/hamclock | grep -q "up (pid" || exit 1
-
 # enhance timeout, as sometimes the api calls are slow (rate limited?)
 ENV S6_CMD_WAIT_FOR_SERVICES_MAXTIME=30000
+
+# Start HamClock
+WORKDIR /hamclock/ESPHamClock
+CMD ["/bin/bash" "-c" "/usr/local/bin/hamclock -o & disown"]
+
+# Add HEALTHCHECK for hamclock service
+HEALTHCHECK --interval=30s --timeout=10s --start-period=20s --retries=3 CMD [ $(ps -A | grep hamclock | wc -l) -le 2 ] && exit 1
 
 # Set s6-overlay as the entrypoint
 ENTRYPOINT ["/init"]
