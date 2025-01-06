@@ -2,7 +2,7 @@ ARG BUILD_FROM=chrisromp/hamclock-docker:latest
 FROM $BUILD_FROM
 
 # Install prerequisites
-RUN apk add --no-cache curl bash jq tar xz
+RUN apk add --no-cache curl jq tar xz
 
 # Set up the architecture for multiarch builds
 ARG BUILD_ARCH
@@ -42,12 +42,14 @@ RUN mkdir -p /etc/s6-overlay/s6-rc.d/banner && \
 # enhance timeout, as sometimes the api calls are slow (rate limited?)
 ENV S6_CMD_WAIT_FOR_SERVICES_MAXTIME=30000
 
+COPY entrypoint.sh /
+RUN chmod a+x /entrypoint.sh
+
 # Start HamClock
 WORKDIR /hamclock/ESPHamClock
-CMD ["/bin/bash" "-c" "'/usr/local/bin/hamclock -o' & disown"]
 
 # Add HEALTHCHECK for hamclock service
-HEALTHCHECK --interval=30s --timeout=10s --start-period=20s --retries=3 CMD [ $(ps -A | grep hamclock | wc -l) -le 2 ] && exit 1
+HEALTHCHECK --interval=30s --timeout=10s --start-period=20s --retries=3 CMD [ $(ps -A | grep hamclock | wc -l) -le 2 ] && sleep 60 && exit 1
 
-# Set s6-overlay as the entrypoint
-ENTRYPOINT ["/init"]
+# Run our entrypoint
+CMD ["/entrypoint.sh"]
