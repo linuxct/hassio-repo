@@ -44,7 +44,7 @@ ENV S6_CMD_WAIT_FOR_SERVICES_MAXTIME=30000
 
 # Start HamClock
 WORKDIR /hamclock/ESPHamClock
-CMD ["/bin/bash" "-c" "/usr/local/bin/hamclock -o & disown"]
+CMD ["/bin/bash" "-c" "'/usr/local/bin/hamclock -o' & disown"]
 
 # Add HEALTHCHECK for hamclock service
 HEALTHCHECK --interval=30s --timeout=10s --start-period=20s --retries=3 CMD [ $(ps -A | grep hamclock | wc -l) -le 2 ] && exit 1
