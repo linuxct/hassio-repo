@@ -1,5 +1,9 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 0.4.11
+
+TODO 4.11
+
 ## 0.4.10
 
 TODO 4.10
