@@ -56,3 +56,4 @@ WORKDIR /hamclock/ESPHamClock
 
 # Copy root filesystem
 COPY rootfs /
+RUN chmod -R +x /etc/services.d/hamclock/*
