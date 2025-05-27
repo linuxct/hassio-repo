@@ -16,7 +16,7 @@ message="message"
 bashio::log.info "${message:="Starting HamClock..."}"
 
 ## Run your program
-exec /hamclock/ESPHamClock/usr/local/bin/hamclock -o
+exec /usr/local/bin/hamclock -o
 
 ## After program started
-bashio::log.info "${message:="HamClock started."}"
+bashio::log.warning "${message:="HamClock started but returned, this is not expected."}"
