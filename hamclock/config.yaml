@@ -9,7 +9,6 @@ arch:
   - armv7
   - aarch64
   - amd64
-init: true
 map:
   - share:rw
 image: "ghcr.io/linuxct/homeassistant-addon-hamclock-{arch}"
