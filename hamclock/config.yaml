@@ -14,6 +14,7 @@ map:
   - share:rw
 image: "ghcr.io/linuxct/homeassistant-addon-hamclock-{arch}"
 hassio_api: true
+apparmor: false
 homeassistant_api: true
 ingress: true
 ingress_port: 8081 # On purpose, as we want to be able to visualize the HamClock webui from the dashboard
