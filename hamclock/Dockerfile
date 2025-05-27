@@ -20,8 +20,12 @@ WORKDIR /hamclock
 
 # Download HamClock source
 # Sort-of following Desktop build steps from https://www.clearskyinstitute.com/ham/HamClock/
-RUN curl -O https://www.clearskyinstitute.com/ham/HamClock/ESPHamClock.zip && \
-    unzip ESPHamClock.zip
+#RUN curl -O https://www.clearskyinstitute.com/ham/HamClock/ESPHamClock.zip && \
+#    unzip ESPHamClock.zip
+
+# For some reason GitHub won't CURL from clearskyinstitute.com, so embed it in the repo temporarily
+COPY ESPHamClock.zip /hamclock/ESPHamClock.zip
+RUN unzip ESPHamClock.zip
 WORKDIR /hamclock/ESPHamClock
 
 # Change optimization level to -O2
