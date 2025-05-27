@@ -13,7 +13,12 @@ declare message
 message=$(bashio::config 'message')
 
 ## Print the message the user supplied, defaults to "Hello World..."
-bashio::log.info "${message:="Hello World..."}"
+bashio::log.info "${message:="Starting HamClock..."}"
 
 ## Run your program
-exec /usr/bin/my_program
+exec /usr/local/bin/hamclock -o
+exec /hamclock/ESPHamClock/usr/local/bin/hamclock -o
+## We don't know the correct path, yet, so for now run it like this
+
+## After program started
+bashio::log.info "${message:="HamClock started."}"
