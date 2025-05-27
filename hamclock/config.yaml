@@ -1,6 +1,6 @@
 # https://developers.home-assistant.io/docs/add-ons/configuration#add-on-config
 name: HamClock add-on
-version: "0.0.1"
+version: "1.0.0"
 slug: hamclock
 description: Adds HamClock to your Home Assistant
 url: "https://github.com/linuxct/hassio-repo/tree/main/hamclock"
@@ -9,7 +9,7 @@ arch:
   - armv7
   - aarch64
   - amd64
-init: false
+init: true
 map:
   - share:rw
 image: "ghcr.io/linuxct/homeassistant-addon-hamclock-{arch}"
@@ -17,7 +17,7 @@ hassio_api: true
 homeassistant_api: true
 ingress: true
 ingress_port: 8081 # On purpose, as we want to be able to visualize the HamClock webui from the dashboard
-ingress_entry: "/live.html"
+ingress_entry: "live.html"
 #webui: "http://[HOST]:[PORT:8081]/live.html"
 ports:
   8080/tcp: null
