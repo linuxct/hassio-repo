@@ -13,7 +13,6 @@ init: false
 map:
   - share:rw
 image: "ghcr.io/linuxct/homeassistant-addon-hamclock-{arch}"
-hassio_api: true
 apparmor: false
 homeassistant_api: true
 ingress: true
