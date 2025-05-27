@@ -49,7 +49,7 @@ EXPOSE 8081/tcp
 VOLUME /root/.hamclock
 
 # Healtheck - call REST API, give it 2 mins to get through setup
-HEALTHCHECK --interval=30s --timeout=10s --start-period=2m --retries=3 CMD curl -f http://localhost:8080/get_sys.txt || exit 1
+HEALTHCHECK --interval=30s --timeout=15s --start-period=30s --retries=3 CMD curl -f http://localhost:8081/live.html || exit 1
 
 # Start HamClock
 WORKDIR /hamclock/ESPHamClock
