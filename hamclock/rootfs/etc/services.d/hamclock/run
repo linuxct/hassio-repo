@@ -13,10 +13,13 @@ declare message
 message="message"
 
 ## Print the message the user supplied, defaults to "Hello World..."
-bashio::log.info "${message:="Starting HamClock..."}"
+bashio::log.info "Starting HamClock..."
+
+## Create configuration directory if it does not exist
+mkdir -p /data/.hamclock
 
 ## Run your program
-exec /usr/local/bin/hamclock -o
+exec /usr/local/bin/hamclock -o -d /data/.hamclock
 
 ## After program started
-bashio::log.warning "${message:="HamClock started but returned, this is not expected."}"
+bashio::log.warning "HamClock started but returned, this is not expected."

@@ -45,9 +45,6 @@ EXPOSE 8080/tcp
 # HamClock Web UI
 EXPOSE 8081/tcp
 
-# Persist HamClock settings outside of container
-VOLUME /root/.hamclock
-
 # Healtheck - call REST API, give it 2 mins to get through setup
 HEALTHCHECK --interval=30s --timeout=15s --start-period=30s --retries=3 CMD curl -f http://localhost:8081/live.html || exit 1
 
